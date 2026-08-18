@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "prisma": "^7.9.1"
+  }
+}
