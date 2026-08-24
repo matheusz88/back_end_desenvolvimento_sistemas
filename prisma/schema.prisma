@@ -6,14 +6,39 @@ datasource db {
   provider = "sqlite"
 }
 
-model Categoria {
-  id       Int       @id @default(autoincrement())
-  nome     String
+model Paciente {
+  id             Int        @id @default(autoincrement())
+  nome           String
+  cpf            String     @unique
+  telefone       String?
+  email          String?
+  dataNascimento DateTime?
+  consultas      Consulta[]
 }
 
-model Produto {
-  id          Int       @id @default(autoincrement())
-  nome        String
-  preco       Float
-  disponivel  Boolean   @default(true)
+model Medico {
+  id            Int        @id @default(autoincrement())
+  nome          String
+  crm           String     @unique
+  especialidade String
+  consultas     Consulta[]
+}
+
+model Consulta {
+  id         Int      @id @default(autoincrement())
+  data       DateTime
+  status     String   @default("AGENDADA")
+
+  pacienteId Int
+  paciente   Paciente @relation(fields: [pacienteId], references: [id])
+
+  medicoId   Int
+  medico     Medico   @relation(fields: [medicoId], references: [id])
+}
+
+model Usuario {
+  id    Int    @id @default(autoincrement())
+  nome  String
+  email String @unique
+  senha String
 }
